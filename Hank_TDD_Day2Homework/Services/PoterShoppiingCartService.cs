@@ -39,6 +39,9 @@ namespace Hank_TDD_Day2Homework.Services
                 case 3:
                     _total = _total * 0.9;
                     break;
+                case 4:
+                    _total = _total * 0.8;
+                    break;
                 default:
                     break;
             }
