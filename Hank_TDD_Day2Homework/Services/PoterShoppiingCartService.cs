@@ -19,7 +19,7 @@ namespace Hank_TDD_Day2Homework.Services
 
         public double Bill()
         {
-            _total=_books.Select(i => i.Pirce).Sum();
+            _total = _books.Select(i => i.Pirce).Sum();
             this.ProcessSale();
             return _total;
         }
@@ -31,9 +31,16 @@ namespace Hank_TDD_Day2Homework.Services
 
         private void ProcessSale()
         {
-            if (_books.Count > 1)
+            switch (_books.Count)
             {
-                _total = _total * 0.95;
+                case 2:
+                    _total = _total * 0.95;
+                    break;
+                case 3:
+                    _total = _total * 0.9;
+                    break;
+                default:
+                    break;
             }
         }
     }
