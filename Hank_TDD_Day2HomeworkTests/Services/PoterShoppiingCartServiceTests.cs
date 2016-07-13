@@ -30,7 +30,7 @@ namespace Hank_TDD_Day2Homework.Services.Tests
         }
 
         [TestMethod()]
-        public void Order1_PoterIAndPoterII_AndBill_ThenPriceIs100()
+        public void Order1_PoterIAndPoterII_AndBill_ThenPriceIs190()
         {
             //arrange
             var target = new PoterShoppiingCartService();
@@ -42,6 +42,26 @@ namespace Hank_TDD_Day2Homework.Services.Tests
             target.OrderProduct(PoterII);
             var actual = target.Bill();
             var expected = 190;
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void Order1_PoterIAndPoterIIAndPoterIII_AndBill_ThenPriceIs270()
+        {
+            //arrange
+            var target = new PoterShoppiingCartService();
+            var PoterI = new PoterBook() { Version = PoterVersion.I };
+            var PoterII = new PoterBook() { Version = PoterVersion.II };
+            var PoterIII = new PoterBook() { Version = PoterVersion.III };
+
+            //act
+            target.OrderProduct(PoterI);
+            target.OrderProduct(PoterII);
+            target.OrderProduct(PoterIII);
+            var actual = target.Bill();
+            var expected = 270;
 
             //assert
             Assert.AreEqual(expected, actual);
