@@ -28,6 +28,24 @@ namespace Hank_TDD_Day2Homework.Services.Tests
             //assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void Order1_PoterIAndPoterII_AndBill_ThenPriceIs100()
+        {
+            //arrange
+            var target = new PoterShoppiingCartService();
+            var PoterI = new PoterBook() { Version = PoterVersion.I };
+            var PoterII = new PoterBook() { Version = PoterVersion.II };
+
+            //act
+            target.OrderProduct(PoterI);
+            target.OrderProduct(PoterII);
+            var actual = target.Bill();
+            var expected = 190;
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 
 }
