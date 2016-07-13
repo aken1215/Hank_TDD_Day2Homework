@@ -4,6 +4,6 @@
     {
         void OrderProduct(T product);
 
-        int Bill();
+        double Bill();
     }
 }

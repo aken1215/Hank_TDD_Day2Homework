@@ -9,7 +9,7 @@ namespace Hank_TDD_Day2Homework.Services
 {
     public class PoterShoppiingCartService : IShoppingCartService<PoterBook>
     {
-        private int _total { get; set; }
+        private double _total { get; set; }
         private ICollection<PoterBook> _books { get; set; }
 
         public PoterShoppiingCartService()
@@ -17,15 +17,24 @@ namespace Hank_TDD_Day2Homework.Services
             this._books = new List<PoterBook>();
         }
 
-        public int Bill()
+        public double Bill()
         {
             _total=_books.Select(i => i.Pirce).Sum();
+            this.ProcessSale();
             return _total;
         }
 
         public void OrderProduct(PoterBook product)
         {
             _books.Add(product);
+        }
+
+        private void ProcessSale()
+        {
+            if (_books.Count > 1)
+            {
+                _total = _total * 0.95;
+            }
         }
     }
 }
