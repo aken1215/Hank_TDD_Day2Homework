@@ -9,7 +9,7 @@ namespace Hank_TDD_Day2Homework.Models
     {
         public  PoterVersion Version { get;set; }
 
-        public int Pirce { get { return 100; }  }
+        public double Pirce { get { return 100; }  }
 
     }
 
