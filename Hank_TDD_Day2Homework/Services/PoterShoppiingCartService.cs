@@ -9,20 +9,23 @@ namespace Hank_TDD_Day2Homework.Services
 {
     public class PoterShoppiingCartService : IShoppingCartService<PoterBook>
     {
-        private double _total { get; set; }
         private ICollection<PoterBook> _books { get; set; }
-        private ICollection<ICollection<PoterBook>> _booksGroups { get; set; }
 
         public PoterShoppiingCartService()
         {
             this._books = new List<PoterBook>();
-            this._booksGroups = new List<ICollection<PoterBook>>();
         }
 
         public double Bill()
         {
-            this.ProcessSale();
-            return _total;
+            var bookGroupsList = this.GeneateBookGroupList();
+            double total = 0;
+
+            foreach (var item in bookGroupsList)
+            {
+                total += this.getSubtotal(item);
+            }
+            return total;
         }
 
         public void OrderProduct(PoterBook product)
@@ -30,29 +33,26 @@ namespace Hank_TDD_Day2Homework.Services
             _books.Add(product);
         }
 
-        private void ProcessSale()
+        private List<ICollection<PoterBook>> GeneateBookGroupList()
         {
-            var _booksGroupByVersion = this._books.GroupBy(i => i.Version);
-            var _booksGroupsLength = _booksGroupByVersion.Select(i => i.Count()).Max();
+            var booksGroupsList = new List<ICollection<PoterBook>>();
+            var booksGroupByVersion = this._books.GroupBy(i => i.Version);
+            var booksGroupsLength = booksGroupByVersion.Select(i => i.Count()).Max();
 
-            for (int i = 0; i <= _booksGroupsLength - 1; i++)
+            for (int i = 0; i <= booksGroupsLength - 1; i++)
             {
-                this._booksGroups.Add(new List<PoterBook>());
+                booksGroupsList.Add(new List<PoterBook>());
             }
 
-            foreach (var items in _booksGroupByVersion)
+            foreach (var items in booksGroupByVersion)
             {
                 for (int i = 0; i <= items.Count() - 1; i++)
                 {
-                    this._booksGroups.ElementAt(i).Add(items.ElementAt(i));
+                    booksGroupsList.ElementAt(i).Add(items.ElementAt(i));
                 }
             }
 
-            foreach (var item in this._booksGroups)
-            {
-                this._total += this.getSubtotal(item);
-            }
-          
+            return booksGroupsList;
         }
 
         private double getSubtotal(ICollection<PoterBook> items)
